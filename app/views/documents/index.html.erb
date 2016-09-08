@@ -1,0 +1,42 @@
+<header class="navbar">
+  <div class="navbar-left">
+    <%= @user.name %>
+  </div>
+  <div class="navbar-center">
+    <h1>Your Documents</h1>
+  </div>
+  <div class="navbar-right">
+    <%= form_tag(documents_path, multipart: true, method: :post, id: "upload") do |f| %>
+      <%= file_field_tag "document", accept: "application/pdf" %>
+      <%= button_tag "Upload PDF", class: "btn" %>
+    <% end %>
+    <script>
+      (function() {
+        var form = document.querySelectorAll('form#upload')[0]
+        var input = form.querySelectorAll('input[type="file"]')[0]
+        input.addEventListener('change', function(e) {
+          if (e.target.files.length > 0) {
+            form.setAttribute('disabled', true)
+            form.submit()
+          }
+        });
+      })();
+    </script>
+  </div>
+</header>
+<main>
+  <div class="thumbnails">
+    <% @documents.each do |d| %>
+      <div class="thumbnail">
+        <a href="<%= document_path(d) %>" class="doc-list-item">
+          <div class="thumbnail-img">
+            <%= image_tag PSPDFKit.cover_image_url(d.server_id, :width, 360) %>
+          </div>
+          <div class="thumbnail-caption">
+            <span><%= d.title %></span>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</main>

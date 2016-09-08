@@ -1,0 +1,15 @@
+<main>
+  <div class="login">
+    <h2>Login</h2>
+    <%= form_for User.new, method: :post do |f| %>
+      <div class="form-group">
+        <%= f.text_field :name, placeholder: "Name" %>
+        <%= f.submit "Login", class: "btn" %>
+      </div>
+    <% end %>
+    <p>
+      This is only a sample project, so you can authenticate by just entering a name.
+      If it exists, you will be logged in as that user, otherwise a new user with that name will be created.
+    </p>
+  </div>
+</main>
